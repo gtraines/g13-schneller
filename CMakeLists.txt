@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 3.8)
 set(CMAKE_CXX_STANDARD 11)
+set(PROJECT_NAME g13_schneller)
+project(${PROJECT_NAME})
 
-include_directories(../Arduino_FreeRTOS)
+include_directories(src)
+add_subdirectory(src)
 
-file(GLOB headers_ "*.h")
-file(GLOB sources_ "*.cpp")
+target_include_directories(g13_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_library(Taskr ${headers_} ${sources_})
-
-target_include_directories(Taskr PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Taskr LINK_PUBLIC Arduino_FreeRTOS)
+add_executable(${CMAKE_PROJECT_NAME} src/g13.cc)
